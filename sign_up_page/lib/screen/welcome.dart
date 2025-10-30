@@ -1,6 +1,7 @@
 // lib/screen/welcome.dart
 import 'package:flutter/material.dart';
-import 'Signup.dart';
+import 'package:animated_text_kit/animated_text_kit.dart';
+import 'Signup.dart'; // Import for navigation
 
 class WelcomeScreen extends StatelessWidget {
   const WelcomeScreen({super.key});
@@ -8,27 +9,42 @@ class WelcomeScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.deepPurple[50],
+      backgroundColor: const Color.fromARGB(255, 3, 220, 25),
       body: Center(
         child: Padding(
           padding: const EdgeInsets.all(24.0),
           child: Column(
             mainAxisSize: MainAxisSize.min,
             children: [
-              const Text(
-                'Signup Adventure',
-                style: TextStyle(
-                  fontSize: 32,
-                  fontWeight: FontWeight.bold,
-                  color: Colors.deepPurple,
+              SizedBox(
+                height: 80,
+                child: AnimatedTextKit(
+                  repeatForever: true,
+                  animatedTexts: [
+                    TyperAnimatedText(
+                      'Welcome to Signup Adventure',
+                      textStyle: const TextStyle(
+                        fontSize: 28,
+                        fontWeight: FontWeight.bold,
+                        color: Colors.deepPurple,
+                      ),
+                      speed: const Duration(milliseconds: 80),
+                    ),
+                    ColorizeAnimatedText(
+                      'Let\'s Get Started!',
+                      textStyle: const TextStyle(
+                        fontSize: 28,
+                        fontWeight: FontWeight.bold,
+                      ),
+                      colors: const [
+                        Colors.deepPurple,
+                        Colors.pink,
+                        Colors.orange,
+                        Colors.blue,
+                      ],
+                    ),
+                  ],
                 ),
-                textAlign: TextAlign.center,
-              ),
-              const SizedBox(height: 16),
-              const Text(
-                'Welcome! Tap below to start.',
-                style: TextStyle(fontSize: 16),
-                textAlign: TextAlign.center,
               ),
               const SizedBox(height: 32),
               ElevatedButton(
@@ -36,17 +52,16 @@ class WelcomeScreen extends StatelessWidget {
                   Navigator.push(
                     context,
                     MaterialPageRoute(
-                      builder: (_) => const SignupScreen(),
+                      builder: (context) => const SignupScreen(), // This now works
                     ),
                   );
                 },
                 style: ElevatedButton.styleFrom(
-                  padding: const EdgeInsets.symmetric(
-                    horizontal: 24,
-                    vertical: 12,
-                  ),
+                  backgroundColor: Colors.deepPurple,
+                  foregroundColor: Colors.white,
+                  padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 12),
                 ),
-                child: const Text('Get Started'),
+                child: const Text('Start Sign Up'),
               ),
             ],
           ),
@@ -55,3 +70,4 @@ class WelcomeScreen extends StatelessWidget {
     );
   }
 }
+
